@@ -2,14 +2,19 @@ name: FRONTEND_BUILD
 
 on:
   push:
-    branches:
-      - dev
-    paths:
-      - "frontend/**"
+    branches: [dev]
+    # branches:
+    #   - dev
+    # paths:
+    #   - "frontend/**"
 
 jobs:
   code-lint:
     runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: ./frontend
     steps:
       # 1. Check out your repository code
       - name: Checkout/Clone the code
