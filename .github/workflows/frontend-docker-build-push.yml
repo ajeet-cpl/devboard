@@ -3,15 +3,14 @@ name: FRONTEND_BUILD
 on:
   push:
     branches: [dev]
-    # branches:
-    #   - dev
-    # paths:
-    #   - "frontend/**"
 
 jobs:
   code-lint:
     runs-on: ubuntu-latest
 
+    # This section tells GitHub Actions to execute all run: commands in the ./frontend directory instead of the repository root.
+    # Use it when most or all run: commands in a job execute from the same folder
+    # Instead of setting a default, you can specify the directory on each step: (working-directory: ./frontend)
     defaults:
       run:
         working-directory: ./frontend
@@ -30,13 +29,12 @@ jobs:
           cache-dependency-path: frontend/package-lock.json
 
       - name: Install dependencies
+        # working-directory: ./frontend
         run: npm install --legacy-peer-deps         # Clean install ensuring exact package-lock versions
-        # working-directory: frontend
 
       - name: Run lint script
+        # working-directory: ./frontend
         run: npm run lint    # Executes the lint command from package.json
-        # working-directory: frontend
-
 
   build-and-push:
     needs: [code-lint]
