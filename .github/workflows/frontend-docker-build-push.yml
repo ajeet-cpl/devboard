@@ -3,9 +3,10 @@ name: FRONTEND_BUILD
 on:
   push:
     branches:
-       - dev
+      - dev
     paths:
-      - 'frontend/**'
+      - "frontend/**"
+      - ".github/workflows/frontend-build.yml"
 
 jobs:
   code-lint:
