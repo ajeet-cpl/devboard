@@ -2,7 +2,10 @@ name: FRONTEND_BUILD
 
 on:
   push:
-    branches: [dev]
+    branches:
+       - dev:
+    paths:
+      - 'frontend/**'
 
 jobs:
   code-lint:
@@ -16,10 +19,6 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          # Sets the context scope specifically to the frontend directory
-          context: ./frontend
-          # Points to the Dockerfile inside your frontend folder
-          file: ./frontend/package.json
           node-version: '20' # Specify your project's Node version
           cache: 'npm'       # Caches npm dependencies automatically
 
