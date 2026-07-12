@@ -2,10 +2,8 @@ name: FRONTEND_BUILD
 
 on:
   push:
-    branches:
-      - dev:
-    paths:
-      - 'frontend/**'
+    branches: [dev]
+    paths: ['frontend/**']
 
 jobs:
   code:
