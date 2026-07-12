@@ -3,7 +3,7 @@ name: FRONTEND_BUILD
 on:
   push:
     branches:
-       - dev:
+       - dev
     paths:
       - 'frontend/**'
 
