@@ -2,7 +2,8 @@ name: FRONTEND_BUILD
 
 on:
   push:
-    branches: [dev]
+    branches:
+      - dev:
     paths:
       - 'frontend/**'
 
@@ -29,6 +30,10 @@ jobs:
       - name: Docker Build and push
         uses: docker/build-push-action@v7
         with:
+          # Sets the context scope specifically to the frontend directory
+          context: ./frontend
+          # Points to the Dockerfile inside your frontend folder
+          file: ./frontend/Dockerfile
           push: true
           tags: ${{ vars.DOCKERHUB_USERNAME }}/devboard-fe-master:latest
 
