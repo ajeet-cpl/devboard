@@ -12,9 +12,6 @@ jobs:
   code-lint:
     runs-on: ubuntu-latest
 
-    defaults:
-      run:
-        working-directory: ./frontend
     steps:
       # 1. Check out your repository code
       - name: Checkout/Clone the code
@@ -29,10 +26,12 @@ jobs:
           cache-dependency-path: frontend/package-lock.json
 
       - name: Install dependencies
-        run: npm ci          # Clean install ensuring exact package-lock versions
+        run: run: npm install --legacy-peer-deps         # Clean install ensuring exact package-lock versions
+        working-directory: frontend
 
       - name: Run lint script
         run: npm run lint    # Executes the lint command from package.json
+        working-directory: frontend
 
 
   build-and-push:
