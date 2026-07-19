@@ -1,8 +1,8 @@
-name: FRONTEND_BUILD
+name: ADVANCE_BUILD
 
 on:
   push:
-    branches: [dev]
+    branches: [advance]
 
 jobs:
   frontend:
@@ -44,22 +44,42 @@ jobs:
                 push: true
                 tags: ${{ vars.DOCKERHUB_USERNAME }}/devboard-frontend:latest
 
-       
-       
-       
-       
-       
-       
-      #   # 2. Install and set up the Python environment
-      # - name: Set up Python
-      #   uses: actions/setup-python@v5
-      #   with:
-      #     python-version: '3.14' # Specify your desired version
+    
+    backend:
+        # Github runner
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout Code
+              uses: actions/checkout@v7
 
-      #   # 3. This step will install the linting tool
-      # - name: Install Linter
-      #   run: pip install ruff
-      
-      #   # 4. This step will run the linter
-      # - name: Check the files for linting
-      #   run: ruff check .
+            - name: Setup Go
+              uses: actions/setup-go@v6
+              with:
+                go-version: '1.23'
+                go-version-file: 'go.mod'
+                cache-dependency-path: go.sum
+            
+            - name: Run Go Formatter
+              run: go fmt
+              working-directory: backend
+
+            - name: Run Go Vet
+              run: go vet
+              working-directory: backend
+            
+            - name: Run Tests
+              run: go test 
+              working-directory: backend
+            
+            - name: Docker Setup [Login]
+              uses: docker/login-action@v4
+              with:
+                username: ${{ vars.DOCKERHUB_USERNAME }}
+                password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+            - name: Docker Build and Push
+              uses: docker/build-push-action@v7
+              with:
+                context: ./backend
+                push: true
+                tags: ${{ vars.DOCKERHUB_USERNAME }}/devboard-backend:latest
