@@ -1,4 +1,4 @@
-# Goal to install multiple versions of Go and do linting for multiple versions
+# Goal to install multiple versions of Go and do linting for multiple versions.
 name: Go Linter
 on:
     workflow_dispatch:
