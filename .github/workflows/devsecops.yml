@@ -26,28 +26,28 @@ jobs:
         uses: ./.github/workflows/docker-scans.yml
         secrets: inherit 
 
-    # # SonarQube
-    # sonar-qube:
-    #     uses: ./.github/workflows/sonar-scan.yml
-    #     secrets: inherit
+    # SonarQube
+    sonar-qube:
+        uses: ./.github/workflows/sonar-scan.yml
+        secrets: inherit
 
-    # # Code Tests
-    # code-tests:
-    #     uses: ./.github/workflows/code-tests.yml
+    # Code Tests
+    code-tests:
+        uses: ./.github/workflows/code-tests.yml
 
-    # # push-to-docker-hub:
-    # docker-push:
-    #     uses: ./.github/workflows/docker-push.yml
-    #     needs: [code-quality,code-tests,sonar-qube,docker-checks,dependency-checks,secret-scanning]
-    #     secrets: inherit
+    # push-to-docker-hub:
+    docker-push:
+        uses: ./.github/workflows/docker-push.yml
+        needs: [code-quality,code-tests,sonar-qube,docker-checks,dependency-checks,secret-scanning]
+        secrets: inherit
 
-    # ## ---- CD -----
-    # deploy:
-    #     needs: [docker-push]
-    #     uses: ./.github/workflows/deploy.yml
-    #     secrets: inherit
+    ## ---- CD -----
+    deploy:
+        needs: [docker-push]
+        uses: ./.github/workflows/deploy.yml
+        secrets: inherit
 
-    # dast-scan:
-    #     needs: [deploy]
-    #     uses: ./.github/workflows/dast.yml
-    #     secrets: inherit
+    dast-scan:
+        needs: [deploy]
+        uses: ./.github/workflows/dast.yml
+        secrets: inherit
