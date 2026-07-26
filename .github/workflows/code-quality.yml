@@ -1,16 +1,17 @@
-# Goal - I have to do SAST for my code
+# Goal - I have to do SAST for my Code
+
 name: Code Quality
 
 on:
-    workflow_call: # You can call this workflow before/after any other workflow
+    workflow_call:  # you can call this workflow before/after any other workflow
 
 jobs:
     sast:
-        runs-on: 
+        runs-on: ubuntu-latest
         steps:
             - name: Code Checkout
               uses: actions/checkout@v7
-
+            
             - name: Setup NodeJs
               uses: actions/setup-node@v6
               with:
@@ -25,7 +26,6 @@ jobs:
             - name: Run Linter
               run: npm run lint
               working-directory: frontend
-
 
             - name: Setup Go
               uses: actions/setup-go@v6
