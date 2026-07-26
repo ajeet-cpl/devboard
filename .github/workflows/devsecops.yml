@@ -3,7 +3,7 @@ name: DevSecOps
 
 on:
     push:
-        banches: [code_quality]
+        branches: [code_quality]
 
 jobs:
     # Code Stage (with Shift Left)
